@@ -14,3 +14,6 @@
    1. Lookup dictionary & find corresponding `errors`.
    1. XOR the `bad_rows` with corresponding `errors`.
 1. Check the result: `C @ X_fixed.T = 0`
+
+### Results
+See `log.txt`
