@@ -40,7 +40,7 @@ def main():
     print(f'C:')
     print(C)
 
-    # Precompute syndrome fixes
+    # Precompute syndromes for 1-bit and 2-bit errors
     lookup_syndromes = {}
     for i in range(n):
         for j in range(i, n):
@@ -50,13 +50,9 @@ def main():
             lookup_syndromes[syn] = e
     
     # Fix bad rows
-    syndromes = []
-    for row in bad_rows:
-        syn = bin_mul(C, X[row, :].T)
-        syndromes.append(tuple(syn))
-
     X_fixed = X.copy()
-    for row, syn in zip(bad_rows, syndromes):
+    for row in bad_rows:
+        syn = tuple(bin_mul(C, X[row, :].T))
         if syn in lookup_syndromes:
             print(f'Row {row:2}: syndrome {np.array(syn)}, fix by {lookup_syndromes[syn]}')
             X_fixed[row, :] ^= lookup_syndromes[syn]
